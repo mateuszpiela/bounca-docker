@@ -16,8 +16,8 @@ if [ $SSL_ENABLED -eq 1 ]; then
     ln -s /etc/nginx/sites-available/bounca-ssl.conf /etc/nginx/sites-enabled/bounca-ssl.conf
     ln -s /etc/nginx/sites-available/bounca.conf /etc/nginx/sites-enabled/bounca.conf
 
-    sed -i "s/ssl_certificate <<SSL_PEM>>;/server_name $SSL_CHAIN_PATH;/" /etc/nginx/sites-available/bounca-ssl.conf
-    sed -i "s/ssl_certificate_key <<SSL_KEY>>;/server_name $SSL_KEY_PATH;/" /etc/nginx/sites-available/bounca.conf
+    sed -i "s/ssl_certificate <<SSL_PEM>>;/ssl_certificate $SSL_CHAIN_PATH;/" /etc/nginx/sites-available/bounca-ssl.conf
+    sed -i "s/ssl_certificate_key <<SSL_KEY>>;/ssl_certificate_key $SSL_KEY_PATH;/" /etc/nginx/sites-available/bounca.conf
 else
     cp /nginx_conf/bounca-withoutssl.conf /etc/nginx/sites-available/bounca.conf
     ln -s /etc/nginx/sites-available/bounca.conf /etc/nginx/sites-enabled/bounca.conf

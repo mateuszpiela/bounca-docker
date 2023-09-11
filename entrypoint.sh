@@ -28,12 +28,10 @@ pg_isready --host=$DB_HOST --port=$DB_PORT --username=$DB_USER
 if [ $? -eq 0 ]; then
     python3 /configure.py
     sed -i "s/server_name <<DOMAIN>>;/server_name $DOMAIN;/" /etc/nginx/sites-available/bounca.conf
- 
-    cd /srv/www/bounca
-    source env/bin/activate
-    python3 manage.py migrate
-    echo "yes" | python3 manage.py collectstatic --clear
-    python3 manage.py site $DOMAIN
+
+    sudo -u www-data cd /srv/www/bounca && env/bin/python3 manage.py migrate
+    sudo -u www-data cd /srv/www/bounca && echo "yes" | env/bin/python3 manage.py collectstatic --clear
+    sudo -u www-data cd /srv/www/bounca && env/bin/python3 python3 manage.py site $DOMAIN
     exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 else
     echo "Cannot connect to PostgreSQL"

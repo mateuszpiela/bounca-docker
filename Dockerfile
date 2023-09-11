@@ -35,7 +35,7 @@ RUN cp /srv/www/bounca/etc/uwsgi/bounca.ini /etc/uwsgi/apps-available/bounca.ini
     mkdir /nginx_conf &&\
     cp /srv/www/bounca/etc/bounca/services.yaml.example /etc/bounca/services.yaml
 
-RUN cd /srv/www/bounca && virtualenv env -p python3 && /srv/www/bounca/env/bin/pip install -r requirements.txt
+RUN cd /srv/www/bounca && sudo -u www-data virtualenv env -p python3 && sudo -u www-data /srv/www/bounca/env/bin/pip install -r requirements.txt
 
 ENV DB_NAME=""
 ENV DB_USER=""

@@ -32,7 +32,7 @@ if [ $? -eq 0 ]; then
     cd /srv/www/bounca
     source env/bin/activate
     python3 manage.py migrate
-    echo "yes" | python3 manage.py collectstatic --clea
+    echo "yes" | python3 manage.py collectstatic --clear
     python3 manage.py site $DOMAIN
     exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 else

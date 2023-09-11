@@ -59,6 +59,9 @@ VOLUME "/ssl"
 COPY configure.py /configure.py
 COPY entrypoint.sh /entrypoint.sh
 COPY config/supervisord.conf /etc/supervisor/supervisord.conf
+
+RUN chmod +rwx /entrypoint.sh
+
 ADD config/bounca-withoutssl.conf config/bounca-withssl-redirect.conf config/bounca-withssl.conf /nginx_conf/
 
 EXPOSE 80/tcp

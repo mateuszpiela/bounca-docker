@@ -29,9 +29,10 @@ if [ $? -eq 0 ]; then
     python3 /configure.py
     sed -i "s/server_name <<DOMAIN>>;/server_name $DOMAIN;/" /etc/nginx/sites-available/bounca.conf
 
-    sudo -u www-data cd /srv/www/bounca && env/bin/python3 manage.py migrate
-    sudo -u www-data cd /srv/www/bounca && echo "yes" | env/bin/python3 manage.py collectstatic --clear
-    sudo -u www-data cd /srv/www/bounca && env/bin/python3 python3 manage.py site $DOMAIN
+    cd /srv/www/bounca
+    sudo -u www-data env/bin/python3 manage.py migrate
+    sudo -u www-data echo "yes" | env/bin/python3 manage.py collectstatic --clear
+    sudo -u www-data env/bin/python3 python3 manage.py site $DOMAIN
     exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 else
     echo "Cannot connect to PostgreSQL"
